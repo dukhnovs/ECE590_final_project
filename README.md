@@ -11,12 +11,12 @@ I will deliver at least one working example of an Elma implementation. My exampl
 2) Same thing as the weather example, but maybe I will find more interesting data instead of weather.
 
 ## Project Resources
-Weather API from: https://openweathermap.org/api
-Visual Studio Code with C++
+ - Weather API from: https://openweathermap.org/api
+ - Visual Studio Code with C++
 
 ## Stretch Goals:
-Expand Example #1. For instance, create an event to post either the weather report or just a summary of the weather on twitter or other social networks.
-Create Example #2.
+1) Expand Example #1. For instance, create an event to post either the weather report or just a summary of the weather on twitter or other social networks.
+2) Create Example #2.
 
 ## Milestones / Planned Date of Achievement
 1) Create a GitHub repository for the final project. / 3.10.19
