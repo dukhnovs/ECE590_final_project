@@ -27,3 +27,6 @@ I will deliver at least one working example of an Elma implementation. My exampl
 6) Finish documentatation. / 3.22.19
 7) Work on stretch goals. / 3.22.19
 8) Completing the final project and submitting it by pushing to GitHub. / 3.22.19
+
+## HW 9 Accomplishments This Week (3.17.19)
+1) Created a GitHub repository for the final project. - Done
