@@ -28,5 +28,12 @@ I will deliver at least one working example of an Elma implementation. My exampl
 7) Work on stretch goals. / 3.22.19
 8) Completing the final project and submitting it by pushing to GitHub. / 3.22.19
 
-## HW 9 Accomplishments This Week (3.17.19)
-1) Created a GitHub repository for the final project. - Done
+## HW 9 Problem 3: Accomplishments This Week (3.17.19)
+1) Created a GitHub repository for the final project. (Milestone #1)
+2) Signed up for an account at https://home.openweathermap.org/ (Not a Milestone)
+3) Obtained API key and tested it but it will take 24 hours before it can be activated. (Not a Milestone)
+4) Used "elma_project" repo (https://github.com/klavinslab/elma_project) to convert my repo to a new extended example. (Not a Milestone)
+5) Created code to pull one sample of weather data. (Milestone #2)
+
+## HW 9 Problem 4: New Code that Worked This Week (3.17.19)
+1) My unit_test.cc file shows an example of how to get one sample of weather data which was Milestone #2.
