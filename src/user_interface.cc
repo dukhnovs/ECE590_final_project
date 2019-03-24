@@ -1,26 +1,15 @@
 #include <unistd.h>
-#include "stopwatch.h"
+#include "weather_app.h"
 #include <string.h>
 
-using namespace stopwatch;
+using namespace weather_app;
 
-UserInterface::UserInterface(StopWatch& sw) : Process("user input"), _stopwatch(sw) {
+UserInterface::UserInterface(WeatherApp& sw) : Process("user input"), _weather_app(sw) {
     initscr();   // Start ncurses
     timeout(1);  // Timeout for waiting for user input
     noecho();    // Do not echo user input to the screen
     curs_set(0); // Do not show the cursor
 };
-
-// void UserInterface::show_time(int x, int y, high_resolution_clock::duration d) {
-
-//     // Print the time at the desired position.
-//     // mvprintw just calls sprintf
-//     mvprintw(x,y,"%d:%02d:%02d", 
-//         std::chrono::duration_cast<std::chrono::minutes>(d).count(),
-//         std::chrono::duration_cast<std::chrono::seconds>(d).count()%60,
-//         (std::chrono::duration_cast<std::chrono::milliseconds>(d).count()%1000)/10
-//     );
-// }
 
 void UserInterface::show_best(string best) {
 
@@ -39,36 +28,73 @@ void UserInterface::update() {
 
     switch ( c ) {            
         case 's':
-            emit(Event("start/stop"));
+            _weather_app.set_responded(false);
+            emit(Event("seattle"));
+            _weather_app.set_city("Seattle");
+            _weather_app.set_mode(1);
+            clear(); // Clear the screen of old stuff
             break;
         case 'r':
             emit(Event("reset"));
+            _weather_app.set_city("None");
+            _weather_app.set_mode(0);
             clear(); // Clear the screen of old stuff
             break;
         case 'l':
-            emit(Event("lap"));
+            _weather_app.set_responded(false);
+            emit(Event("london"));
+            _weather_app.set_city("London");
+            _weather_app.set_mode(1);
+            clear(); // Clear the screen of old stuff
             break;
         case 'q':
             std::cout << "halting\n";
             halt();
             break;
+        case 'm':
+            emit(Event("max_temp"));
+            _weather_app.set_mode(2);
+            clear(); // Clear the screen of old stuff
+            break;
+        case 'n':
+            emit(Event("min_temp"));
+            _weather_app.set_mode(2);
+            clear(); // Clear the screen of old stuff
+            break;
     }
 
-    // OUTPUT
+    mvprintw(4,3,"Loading ...");
+    // wait for api response
+    while (_weather_app.responded() == false) {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+   
     
-    show_best("Seattle(s), London(l), reset(r), quit(q)"); 
-    mvprintw(3,3,"Highest Temperature: %1.0f", _stopwatch.max_temp());
-    // mvprintw(4,2,"Highest Temperature: %1.0f", 17.17);
-    // mvprintw(3,1,"start/stop(s), lap(l), reset(r), quit(q)");
-    // for ( int i=0; i<_stopwatch.laps().size(); i++ ) {
-    //     mvprintw(5+i, 1, "Lap %d", _stopwatch.laps().size()-i);
-    //     show_time(5+i, 10, _stopwatch.laps()[i]);
-    // }
+    // OUTPUT
 
-    // NOTE: Since the stopwatch is running every 10 ms, we should sleep
+    if (_weather_app.mode() == 0) {
+        mvprintw(1,3,"Select Seattle(s), Select London(l), reset(r), quit(q)"); 
+    } else if (_weather_app.mode() == 1) {
+        mvprintw(1,3,"Select Seattle(s), Select London(l), reset(r), quit(q)"); 
+        mvprintw(2,3,"Selected City: %s", _weather_app.city().c_str()); 
+        mvprintw(3,3,"Check Max Temperature(m) or Check Min Temperature(n)"); 
+    } else if (_weather_app.mode() == 2) {
+        mvprintw(1,3,"Select Seattle(s), Select London(l), reset(r), quit(q)"); 
+        mvprintw(2,3,"Selected City: %s",  _weather_app.city().c_str()); 
+        if (_weather_app.temp_type() == 0) {
+            mvprintw(3,3,"Selected Temp Type: Max",  _weather_app.city().c_str()); 
+        } else if (_weather_app.temp_type() == 1) {
+            mvprintw(3,3,"Selected Temp Type: Min",  _weather_app.city().c_str()); 
+        }
+        mvprintw(4,3,"Temperature: %1.0f", _weather_app.temp_result());
+    } 
+    
+
+
+    // NOTE: Since the weather_app is running every 10 ms, we should sleep
     //       the ui to give processing time back to the OS. It is debatable
     //       whether this is the right place to put this. It could also become
-    //       an Elma feature, or it could go in the StopWatch class, etc.
+    //       an Elma feature, or it could go in the WeatherApp class, etc.
     //       The number 9999 should also be a parameter and not a constant.
     usleep(9999);
 

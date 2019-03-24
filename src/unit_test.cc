@@ -3,15 +3,15 @@
 #include <string>
 #include <chrono>
 #include "gtest/gtest.h"
-#include "stopwatch.h"
+#include "weather_app.h"
 
 namespace {
     using namespace std;
     using namespace elma;
-    using namespace stopwatch;
+    using namespace weather_app;
 
-    TEST(StopWatch,Construction) { 
-        StopWatch sw; 
+    TEST(WeatherApp,Construction) { 
+        WeatherApp sw; 
         Manager m;
         m.schedule(sw,10_ms)
           .init()
