@@ -2,8 +2,9 @@
 #include <chrono>
 #include <vector>
 #include <ncurses.h>
-
+#include <string.h>
 #include "stopwatch.h"
+
 
 namespace stopwatch {
 
@@ -24,7 +25,8 @@ namespace stopwatch {
         void start() {}
 
         //! Display the time at the given x,y position on the screen
-        void show_time(int x, int y, high_resolution_clock::duration d);
+        // void show_time(int x, int y, high_resolution_clock::duration d);
+        void show_best(string best);
 
         //! Update the user interface by (a) reading keyboard input and (b) writing to the screen
         void update();

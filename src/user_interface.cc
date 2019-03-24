@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include "stopwatch.h"
+#include <string.h>
 
 using namespace stopwatch;
 
@@ -10,15 +11,22 @@ UserInterface::UserInterface(StopWatch& sw) : Process("user input"), _stopwatch(
     curs_set(0); // Do not show the cursor
 };
 
-void UserInterface::show_time(int x, int y, high_resolution_clock::duration d) {
+// void UserInterface::show_time(int x, int y, high_resolution_clock::duration d) {
+
+//     // Print the time at the desired position.
+//     // mvprintw just calls sprintf
+//     mvprintw(x,y,"%d:%02d:%02d", 
+//         std::chrono::duration_cast<std::chrono::minutes>(d).count(),
+//         std::chrono::duration_cast<std::chrono::seconds>(d).count()%60,
+//         (std::chrono::duration_cast<std::chrono::milliseconds>(d).count()%1000)/10
+//     );
+// }
+
+void UserInterface::show_best(string best) {
 
     // Print the time at the desired position.
     // mvprintw just calls sprintf
-    mvprintw(x,y,"%d:%02d:%02d", 
-        std::chrono::duration_cast<std::chrono::minutes>(d).count(),
-        std::chrono::duration_cast<std::chrono::seconds>(d).count()%60,
-        (std::chrono::duration_cast<std::chrono::milliseconds>(d).count()%1000)/10
-    );
+    mvprintw(1,2,best.c_str());
 }
 
 void UserInterface::update() {
@@ -47,12 +55,15 @@ void UserInterface::update() {
     }
 
     // OUTPUT
-    show_time(1,1,_stopwatch.value()); 
-    mvprintw(3,1,"start/stop(s), lap(l), reset(r), quit(q)");
-    for ( int i=0; i<_stopwatch.laps().size(); i++ ) {
-        mvprintw(5+i, 1, "Lap %d", _stopwatch.laps().size()-i);
-        show_time(5+i, 10, _stopwatch.laps()[i]);
-    }
+    
+    show_best("Seattle(s), London(l), reset(r), quit(q)"); 
+    mvprintw(3,3,"Highest Temperature: %1.0f", _stopwatch.max_temp());
+    // mvprintw(4,2,"Highest Temperature: %1.0f", 17.17);
+    // mvprintw(3,1,"start/stop(s), lap(l), reset(r), quit(q)");
+    // for ( int i=0; i<_stopwatch.laps().size(); i++ ) {
+    //     mvprintw(5+i, 1, "Lap %d", _stopwatch.laps().size()-i);
+    //     show_time(5+i, 10, _stopwatch.laps()[i]);
+    // }
 
     // NOTE: Since the stopwatch is running every 10 ms, we should sleep
     //       the ui to give processing time back to the OS. It is debatable

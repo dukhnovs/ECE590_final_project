@@ -6,6 +6,8 @@
 #include "on.h"
 #include "off.h"
 #include "user_interface.h"
+#include <vector>
+#include <string.h>
 
 namespace stopwatch {
 
@@ -27,17 +29,27 @@ namespace stopwatch {
 
         //! Stop the stopwatch
         void stop();
+        void seattle();
 
         //! Add a lap time to the list of lap times.
         void lap();
+        void london();
 
         //! Get the time stored by the stopwatch
         high_resolution_clock::duration value();
 
         //! Get a list of lap times
         const vector<high_resolution_clock::duration>& laps() { return _laps; }
+        // //! Get a list of temperatures
+        // inline vector<double> temp() { return _temp; }
+        
+        double max_temp();
+        void get_api_data(string api_string);
+        void set_max();
 
         private:
+        vector<double> _temp;
+        double _max;
 
         // When overriding the StateMachine class, put state declarations here.
         OnState on;
