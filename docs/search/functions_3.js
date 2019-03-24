@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['offstate',['OffState',['../classstopwatch_1_1OffState.html#a421aa693834d809dfb2e39ec3bd3cc2e',1,'stopwatch::OffState']]],
-  ['onstate',['OnState',['../classstopwatch_1_1OnState.html#a247e867c94f178ca06be04de762dbe52',1,'stopwatch::OnState']]]
+  ['maxstate',['MaxState',['../classweather__app_1_1MaxState.html#af2acec516ccf273a1853ad958703fdd0',1,'weather_app::MaxState']]],
+  ['minstate',['MinState',['../classweather__app_1_1MinState.html#a2e905ec9cbd4f9cb0c1c2471a983a247',1,'weather_app::MinState']]]
 ];

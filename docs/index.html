@@ -80,34 +80,42 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><p><a href="http://klavinslab.org/elma">Elma</a> is an event loop manager designed to teach embedded and reactive systems programming. This repository contains an example Elma project, showing how to use many Elma features, as well as illustrating how to arrange the files and directories in an Elma project.</p>
 <p>The source code for this project is available <a href="https://github.com/klavinslab/elma_project">on github</a>.</p>
-<h2>Installation </h2>
-<pre class="fragment">git clone https://github.com/klavinslab/elma_project.git
-cd elma_project
-docker run -v $PWD:/source -it klavins/elma:latest bash
+<h2>Installation from Microsoft Visual Code Terminal in Windows 10 </h2>
+<p>For Linux and Mac just change $PWD/: to $PWD: </p><pre class="fragment">git clone https://github.com/dukhnovs/ECE590_final_project.git
+cd ECE590_final_project.git
+docker run -v $PWD/:/source -it klavins/elma:latest bash
 make
 make docs
 </pre><h2>Execution </h2>
-<p>To run the stopwatch, type </p><pre class="fragment">bin/stopwatch
-</pre><p>The stopwatch is controlled via the keyboard, via these keys:</p><ul>
-<li><b>s</b>: Start or stop</li>
-<li><b>l</b>: Lap</li>
+<p>To run the weather_app, type </p><pre class="fragment">bin/weather_app
+</pre><p>The weather_app is controlled via the keyboard, via these keys:</p><ul>
+<li><b>s</b>: Select city of Seattle, USA</li>
+<li><b>l</b>: Select city of London, UK</li>
 <li><b>r</b>: Reset</li>
 <li><b>q</b>: Quit</li>
 </ul>
 <h2>Testing </h2>
 <p>To run tests, do ```bash bin/test ```</p>
 <h2>Architecture </h2>
-<p>Describe how your project was designed, what choices you made, how things are organized, etc.</p>
+<h2>Design </h2>
+<p>The project is designed using a finite state machine. There are two states: min and max. State min represents when the user wants to check the lowest temperature in the forecast. State max represents when the user wants to check the highest temperature in the forecast.</p>
+<p>First, the user selects a city (Seattle or London). This is not stored in a state but simply saved in the weather_app class as a variable. Second, the user selects a temperature type (min or max). This causes the transation from the current state to the selected state.</p>
+<p>The selected state is then used to figure out which temperature value to return and display on the user interface. If the state is min, then the min temperature is displayed. If the state is max, then the max temperature state is displayed. Both values are stored in the weather_app class independent of the state but only one is used depending on the state.</p>
+<h2>Organization </h2>
+<p>The max state is in <a class="el" href="max_8h_source.html">max.h</a>.</p>
+<p>The min state is in <a class="el" href="min_8h_source.html">min.h</a>.</p>
+<p>The weather_app main parts are in <a class="el" href="weather__app_8h_source.html">weather_app.h</a>. This is where the json file with weather data is obtained with an API from openweathermap.org. This is also where the user selections are stored and all weather data are stored.</p>
+<p>The user interface is in <a class="el" href="user__interface_8h_source.html">user_interface.h</a>. This controls what is displayed on the terminal.</p>
 <h2>Results </h2>
 <p>Describe the results of testing and running your code. Include visuals when possible.</p>
 <h2>Acknowledgements </h2>
-<p>Mention anyone who helped you and how.</p>
+<p>Professor Klavins' code was used as the starting base for this project.</p>
 <h2>References </h2>
-<p>List all libraries, articles, stack overflow answers, etc. that you used to get your code working. </p>
+<p><a href="https://github.com/klavinslab/elma_project">https://github.com/klavinslab/elma_project</a> <a href="https://stackoverflow.com/questions/1153548/minimum-double-value-in-c-c">https://stackoverflow.com/questions/1153548/minimum-double-value-in-c-c</a> <a href="https://en.cppreference.com/w/cpp/types/numeric_limits/max">https://en.cppreference.com/w/cpp/types/numeric_limits/max</a> <a href="http://www.cplusplus.com/reference/vector/vector/clear/">http://www.cplusplus.com/reference/vector/vector/clear/</a> </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 14 2019 18:49:22 for My Elma Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Mar 24 2019 06:14:35 for My Elma Project by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

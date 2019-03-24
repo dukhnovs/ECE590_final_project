@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['offstate',['OffState',['../classstopwatch_1_1OffState.html',1,'stopwatch']]],
-  ['onstate',['OnState',['../classstopwatch_1_1OnState.html',1,'stopwatch']]]
+  ['maxstate',['MaxState',['../classweather__app_1_1MaxState.html',1,'weather_app']]],
+  ['minstate',['MinState',['../classweather__app_1_1MinState.html',1,'weather_app']]]
 ];

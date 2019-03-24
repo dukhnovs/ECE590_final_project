@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['stopwatch',['StopWatch',['../classstopwatch_1_1StopWatch.html',1,'stopwatch']]]
+  ['userinterface',['UserInterface',['../classweather__app_1_1UserInterface.html',1,'weather_app']]]
 ];
