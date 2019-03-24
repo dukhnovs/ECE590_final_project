@@ -40,3 +40,25 @@ I will deliver at least one working example of an Elma implementation. My exampl
 
 ## HW 9 Problem 4: New Code that Worked This Week (3.17.19)
 1) My unit_test.cc file shows an example of how to get one sample of weather data which was Milestone #2.
+
+Usage
+===
+Start with the root of the project directory.
+Use Prof. Klavins' pre-compiled image via Dockerhub with the command on linux:
+```bash
+docker run -v $PWD:/source -it klavins/ecep520:cppenv-http bash
+```
+or on Windows:
+```bash
+docker run -v $PWD/:/source -it klavins/ecep520:cppenv-http bash
+```
+Run make:
+```bash
+make
+```
+Run the weather_app:
+```bash
+bin/weather_app
+```
+
+
