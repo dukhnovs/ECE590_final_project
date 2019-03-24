@@ -12,8 +12,8 @@ using namespace weather_app;
 WeatherApp::WeatherApp() : StateMachine("weather_app") {
 
     _mode = 0;
-    _responded = false;
-    _temp_type = 0; // max
+    _responded = true;
+    _temp_type = "min"; // min
     _city = "None";
     // Define state machine initial states and transitions here
     set_initial(min);
@@ -52,9 +52,10 @@ void WeatherApp::get_api_data(string api_string) {
     // wait for response
     while(c.num_responses() != 1) {
     }
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    c.process_responses();
     _responded = true;
+    // std::this_thread::sleep_for(std::chrono::seconds(1));
+    c.process_responses();
+    
 }
 
 void WeatherApp::reset() {
@@ -62,14 +63,14 @@ void WeatherApp::reset() {
     // _laps.clear();
     _max = 0;
     _min = 0;
-    _temp_type = 0;
+    _temp_type = "min";
 }
 
 // void WeatherApp::stop() {
 //     _elapsed += high_resolution_clock::now() - _start_time;
 // }
 void WeatherApp::seattle() {
-     get_api_data("http://api.openweathermap.org/data/2.5/forecast?q=Houston,usa&APPID=d0fcd7e3aea1a3bc4f2c6095671223e8");
+     get_api_data("http://api.openweathermap.org/data/2.5/forecast?q=Seattle,usa&APPID=d0fcd7e3aea1a3bc4f2c6095671223e8");
      set_max_min();
 }
 
@@ -120,7 +121,7 @@ void WeatherApp::set_mode(int mode) {
     _mode = mode;
 }
 
-void WeatherApp::set_temp_type(int temp_type) {
+void WeatherApp::set_temp_type(string temp_type) {
     _temp_type = temp_type;
 }
 

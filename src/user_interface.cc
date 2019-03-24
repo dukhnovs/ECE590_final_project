@@ -25,7 +25,7 @@ void UserInterface::update() {
     // If no character is ready, getch() returns ERR (which is
     // ignored below since there is no condition in the switch statement)
     int c = getch();
-
+    double temp;
     switch ( c ) {            
         case 's':
             _weather_app.set_responded(false);
@@ -52,22 +52,30 @@ void UserInterface::update() {
             halt();
             break;
         case 'm':
-            emit(Event("max_temp"));
+            _weather_app.set_responded(false);
             _weather_app.set_mode(2);
+            _weather_app.set_temp_type("max");
+            emit(Event("max_temp"));
+            temp = _weather_app.max_temp();
+            _weather_app.set_temp(temp);
+
             clear(); // Clear the screen of old stuff
             break;
         case 'n':
-            emit(Event("min_temp"));
+            _weather_app.set_responded(false);
             _weather_app.set_mode(2);
+            _weather_app.set_temp_type("min");
+            emit(Event("min_temp"));
+            _weather_app.set_temp_type("min");
+            temp = _weather_app.min_temp();
+            _weather_app.set_temp(temp);
+   
             clear(); // Clear the screen of old stuff
             break;
     }
 
-    mvprintw(4,3,"Loading ...");
-    // wait for api response
-    while (_weather_app.responded() == false) {
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
+
+
    
     
     // OUTPUT
@@ -81,12 +89,12 @@ void UserInterface::update() {
     } else if (_weather_app.mode() == 2) {
         mvprintw(1,3,"Select Seattle(s), Select London(l), reset(r), quit(q)"); 
         mvprintw(2,3,"Selected City: %s",  _weather_app.city().c_str()); 
-        if (_weather_app.temp_type() == 0) {
+        if (_weather_app.temp_type() == "max") {
             mvprintw(3,3,"Selected Temp Type: Max",  _weather_app.city().c_str()); 
-        } else if (_weather_app.temp_type() == 1) {
+        } else if (_weather_app.temp_type() == "min") {
             mvprintw(3,3,"Selected Temp Type: Min",  _weather_app.city().c_str()); 
         }
-        mvprintw(4,3,"Temperature: %1.0f", _weather_app.temp_result());
+        mvprintw(4,3,"Temperature: %1.0f F", _weather_app.temp_result());
     } 
     
 

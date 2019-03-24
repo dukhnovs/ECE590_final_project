@@ -44,7 +44,7 @@ namespace weather_app {
         // inline vector<double> temp() { return _temp; }
         inline string city() { return _city; }
         inline int mode() { return _mode; }
-        inline int temp_type() { return _temp_type; }
+        inline string temp_type() { return _temp_type; }
         inline bool responded() { return _responded; }
 
         double max_temp();
@@ -55,7 +55,7 @@ namespace weather_app {
         void set_max_min();
         void set_city(string city);
         void set_mode(int mode);
-        void set_temp_type(int temp_type);
+        void set_temp_type(string temp_type);
         void set_responded(bool responded);
 
 
@@ -72,7 +72,7 @@ namespace weather_app {
         // Other private variables
         bool _responded;
         int _mode;
-        int _temp_type;
+        string _temp_type;
         string _city;
         // high_resolution_clock::time_point _start_time;
         // high_resolution_clock::duration _elapsed;

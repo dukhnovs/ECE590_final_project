@@ -1,43 +1,80 @@
-# ECE590_final_project
+Example Elma Project: Weather_App
+===
 
-## Project Goals:
-I will use Elma in C++ to create one or more examples of how to use it.
+[Elma](http://klavinslab.org/elma) is an event loop manager designed to teach embedded and reactive systems programming. This repository contains an example Elma project, showing how to use many Elma features, as well as illustrating how to arrange the files and directories in an Elma project.
 
-## Project Success:
-I will deliver at least one working example of an Elma implementation. My example will include a plot of data that was collected by Elma.
+The source code for this project is available [on github](https://github.com/klavinslab/elma_project).
 
-## Example #1:
-1) Pull weather data on a set interval. Collect the data. Plot the data. Email a weather report when enough data is collected.
-2) Same thing as the weather example, but maybe I will find more interesting data instead of weather.
+Installation from Microsoft Visual Code Terminal in Windows 10
+---
+For Linux and Mac just change $PWD/: to $PWD:
 
-## Project Resources
- - Weather API from: https://openweathermap.org/api
- - Visual Studio Code with C++
+    git clone https://github.com/dukhnovs/ECE590_final_project.git
+    cd ECE590_final_project.git
+    docker run -v $PWD/:/source -it klavins/elma:latest bash
+    make
+    make docs
 
-## Stretch Goals:
-1) Expand Example #1. For instance, create an event to post either the weather report or just a summary of the weather on twitter or other social networks.
-2) Create Example #2.
 
-## Milestones / Planned Date of Achievement
-1) Create a GitHub repository for the final project. / 3.10.19
-2) Create code to pull one sample of weather data. / 3.16.19
-3) Create class to pull data on an interval and store it. / 3.17.19
-4) Create code to plot stored data. / 3.17.19
-5) Create code to send plot or report to an email address triggered by some event. / 3.17.19
-6) Finish documentatation. / 3.22.19
-7) Work on stretch goals. / 3.22.19
-8) Completing the final project and submitting it by pushing to GitHub. / 3.22.19
+Execution
+---
+To run the weather_app, type
 
-## HW 9 Problem 3: Accomplishments This Week (3.17.19)
-1) Created a GitHub repository for the final project. (Milestone #1)
-2) Signed up for an account at https://home.openweathermap.org/ (Not a Milestone)
-3) Obtained API key and tested it but it will take 24 hours before it can be activated. (Not a Milestone)
-4) Used "elma_project" repo (https://github.com/klavinslab/elma_project) to convert my repo to a new extended example. (Not a Milestone)
-5) Created code to pull one sample of weather data. (Milestone #2)
+    bin/weather_app
 
-### Milestone Adjustments
-1) Milestones #3 - #5 are delayed until 3.20.19
+The weather_app is controlled via the keyboard, via these keys:
+- **s**: Select city of Seattle, USA
+- **l**: Select city of London, UK
+- **r**: Reset
+- **q**: Quit
 
-## HW 9 Problem 4: New Code that Worked This Week (3.17.19)
-1) My unit_test.cc file shows an example of how to get one sample of weather data which was Milestone #2.
+Testing
+---
+To run tests, do
+```bash
+bin/test
+```
 
+Architecture
+---
+Design
+--
+The project is designed using a finite state machine. There are two states: min and max.
+State min represents when the user wants to check the lowest temperature in the forecast.
+State max represents when the user wants to check the highest temperature in the forecast.
+
+First, the user selects a city (Seattle or London). This is not stored in a state but simply saved 
+in the weather_app class as a variable. Second, the user selects a temperature type (min or max).
+This causes the transation from the current state to the selected state. 
+
+The selected state is then used to figure out which temperature value to return and display on
+the user interface. If the state is min, then the min temperature is displayed. If the state is
+max, then the max temperature state is displayed. Both values are stored in the weather_app class
+independent of the state but only one is used depending on the state.
+
+Organization
+--
+The max state is in max.h.
+
+The min state is in min.h.
+
+The weather_app main parts are in weather_app.h. 
+This is where the json file with weather data is obtained with an API from openweathermap.org.
+This is also where the user selections are stored and all weather data are stored.
+
+The user interface is in user_interface.h. This controls what is displayed on the terminal.
+
+Results
+---
+Describe the results of testing and running your code. Include visuals when possible.
+
+Acknowledgements
+---
+Professor Klavins' code was used as the starting base for this project.
+
+References
+---
+https://github.com/klavinslab/elma_project
+https://stackoverflow.com/questions/1153548/minimum-double-value-in-c-c
+https://en.cppreference.com/w/cpp/types/numeric_limits/max
+http://www.cplusplus.com/reference/vector/vector/clear/
